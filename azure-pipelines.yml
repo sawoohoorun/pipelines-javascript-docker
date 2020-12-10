@@ -8,6 +8,9 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
+  
+variables:
+  imageName: 'pipelines-javascript-docker'
 
 steps:
 - script: echo Hello, world!
@@ -17,3 +20,10 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
